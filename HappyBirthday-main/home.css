@@ -1,0 +1,486 @@
+```css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(-45deg, #fee9f7, #e8f5fe, #fef2e8, #f0ffe8);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+    overflow: hidden;
+    position: relative;
+}
+
+.cursor {
+    width: 20px;
+    height: 20px;
+    background: pink;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    mix-blend-mode: difference;
+    transition: transform 0.2s;
+    z-index: 99999;
+}
+
+.container {
+    text-align: center;
+    z-index: 1;
+    width: 100%;
+    padding: 20px;
+}
+
+.countdown-section {
+    text-align: center;
+}
+
+.countdown-title {
+    font-size: 2.5rem;
+    color: #ff69b4;
+    text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+    margin-bottom: 2rem;
+    animation: fadeInScale 1s ease;
+}
+
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.countdown-item {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 1.5rem 2rem;
+    min-width: 100px;
+    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+    transition: transform 0.3s;
+}
+
+.countdown-item:hover {
+    transform: translateY(-5px);
+}
+
+.countdown-number {
+    display: block;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ff69b4;
+    line-height: 1;
+}
+
+.countdown-label {
+    display: block;
+    font-size: 0.9rem;
+    color: #8a2be2;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+}
+
+.birthday-content {
+    animation: fadeInScale 1s ease;
+}
+
+/* =========================
+   BIRTHDAY CAKE
+========================= */
+
+.birthday-cake {
+    position: relative;
+    width: 250px;
+    height: 210px;
+    margin: 0 auto 15px;
+    animation: cakeEntrance 1s ease-out;
+}
+
+/* Bottom layer */
+.cake-bottom {
+    position: absolute;
+    width: 220px;
+    height: 70px;
+    left: 15px;
+    bottom: 0;
+    background: linear-gradient(to bottom, #ff9acb, #ff69b4);
+    border-radius: 15px 15px 25px 25px;
+    box-shadow:
+        0 12px 20px rgba(255, 105, 180, 0.35),
+        inset 0 -8px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Middle layer */
+.cake-middle {
+    position: absolute;
+    width: 190px;
+    height: 55px;
+    left: 30px;
+    bottom: 55px;
+    background: linear-gradient(to bottom, #ffd1e6, #ff9acb);
+    border-radius: 14px 14px 20px 20px;
+    box-shadow: inset 0 -7px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* Top layer */
+.cake-top {
+    position: absolute;
+    width: 160px;
+    height: 45px;
+    left: 45px;
+    bottom: 100px;
+    background: linear-gradient(to bottom, #fff0f7, #ffc1dc);
+    border-radius: 50% 50% 18px 18px;
+    box-shadow:
+        0 5px 12px rgba(255, 105, 180, 0.25),
+        inset 0 -5px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Cake cream dots */
+.cake-top::before {
+    content: "••••••";
+    position: absolute;
+    width: 100%;
+    top: 12px;
+    left: 0;
+    color: #ff69b4;
+    font-size: 20px;
+    letter-spacing: 14px;
+}
+
+/* Candle */
+.candle {
+    position: absolute;
+    width: 18px;
+    height: 55px;
+    left: 116px;
+    bottom: 142px;
+    background: repeating-linear-gradient(
+        45deg,
+        #fff,
+        #fff 7px,
+        #ff69b4 7px,
+        #ff69b4 12px
+    );
+    border-radius: 5px 5px 3px 3px;
+    z-index: 5;
+}
+
+/* Flame */
+.flame {
+    position: absolute;
+    left: 50%;
+    top: -38px;
+    transform: translateX(-50%);
+    font-size: 32px;
+    filter: drop-shadow(0 0 8px rgba(255, 165, 0, 0.7));
+    animation: flameFlicker 0.7s ease-in-out infinite alternate;
+}
+
+/* Cake shine */
+.cake-bottom::after {
+    content: "✨  💕  ✨";
+    position: absolute;
+    top: 22px;
+    left: 0;
+    width: 100%;
+    font-size: 18px;
+}
+
+/* Cake animation */
+@keyframes cakeEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.6);
+    }
+
+    70% {
+        transform: translateY(-8px) scale(1.05);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes flameFlicker {
+    0% {
+        transform: translateX(-50%) scale(1) rotate(-3deg);
+    }
+
+    50% {
+        transform: translateX(-50%) scale(1.12) rotate(3deg);
+    }
+
+    100% {
+        transform: translateX(-50%) scale(0.92) rotate(-2deg);
+    }
+}
+
+/* =========================
+   BIRTHDAY TEXT
+========================= */
+
+.birthday-title {
+    font-size: 3.8rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: #ff4fa3;
+    text-shadow:
+        0 3px 0 white,
+        0 0 15px rgba(255, 105, 180, 0.55);
+    margin: 0;
+    opacity: 1;
+    animation: titlePop 1s ease-out 0.4s both;
+}
+
+.birthday-name {
+    font-size: 2rem;
+    color: #8a2be2;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    animation: nameFade 1s ease-out 0.7s both;
+}
+
+.greeting {
+    font-size: 1.5rem;
+    color: #8a2be2;
+    margin-bottom: 25px;
+    min-height: 2em;
+}
+
+@keyframes titlePop {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    70% {
+        transform: scale(1.08);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes nameFade {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   ENTER BUTTON
+========================= */
+
+.cta-button {
+    padding: 1rem 2.2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff69b4, #ff99cc);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+    opacity: 1;
+    animation: buttonPulse 2s infinite;
+}
+
+.cta-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(255, 105, 180, 0.7);
+}
+
+@keyframes buttonPulse {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+    }
+
+    50% {
+        box-shadow: 0 0 30px rgba(255, 105, 180, 0.9);
+    }
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.floating {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* =========================
+   MUSIC BUTTON
+========================= */
+
+.music-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(45deg, #ff69b4, #ff99cc);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.music-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
+}
+
+.music-toggle.playing {
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.music-icon {
+    font-size: 1.5rem;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* =========================
+   LOADING SCREEN
+========================= */
+
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(-45deg, #fee9f7, #e8f5fe, #fef2e8, #f0ffe8);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+.loading-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-heart {
+    font-size: 4rem;
+    animation: heartbeat 1s ease-in-out infinite;
+}
+
+.loading-text {
+    font-size: 1.5rem;
+    color: #ff69b4;
+    margin-top: 1rem;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    .birthday-cake {
+        transform: scale(0.82);
+        margin-bottom: 0;
+    }
+
+    .birthday-title {
+        font-size: 2.3rem;
+        letter-spacing: 1px;
+    }
+
+    .birthday-name {
+        font-size: 1.5rem;
+    }
+
+    .greeting {
+        font-size: 1.15rem;
+    }
+
+    .cta-button {
+        font-size: 1rem;
+        padding: 0.9rem 1.8rem;
+    }
+
+    .music-toggle {
+        width: 45px;
+        height: 45px;
+        top: 12px;
+        right: 12px;
+    }
+}
+
+/* Hide custom cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    * {
+        cursor: auto !important;
+    }
+
+    .cursor {
+        display: none !important;
+    }
+}
+```
