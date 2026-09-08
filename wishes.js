@@ -1,26 +1,12 @@
-// Music control
+// ===== MUSIC CONTROL =====
 const bgMusic = document.getElementById('bgMusic');
 const musicToggle = document.getElementById('musicToggle');
 const musicIcon = musicToggle.querySelector('.music-icon');
 
-function toggleMusic() {
-    if (bgMusic.paused) {
-        bgMusic.play();
-        musicToggle.classList.add('playing');
-        musicIcon.textContent = '🎵';
-        localStorage.setItem('musicPlaying', 'true');
-    } else {
-        bgMusic.pause();
-        musicToggle.classList.remove('playing');
-        musicIcon.textContent = '🔇';
-        localStorage.setItem('musicPlaying', 'false');
-    }
-}
+// Start Page 2 music after user interaction
+function startMusic() {
+    if (!bgMusic) return;
 
-musicToggle.addEventListener('click', toggleMusic);
-
-// Check if music was playing on previous page
-if (localStorage.getItem('musicPlaying') === 'true') {
     bgMusic.play().then(() => {
         musicToggle.classList.add('playing');
         musicIcon.textContent = '🎵';
@@ -28,6 +14,26 @@ if (localStorage.getItem('musicPlaying') === 'true') {
         musicIcon.textContent = '🔇';
     });
 }
+
+// Music ON / OFF
+function toggleMusic() {
+    if (bgMusic.paused) {
+        bgMusic.play().then(() => {
+            musicToggle.classList.add('playing');
+            musicIcon.textContent = '🎵';
+        });
+    } else {
+        bgMusic.pause();
+        musicToggle.classList.remove('playing');
+        musicIcon.textContent = '🔇';
+    }
+}
+
+musicToggle.addEventListener('click', toggleMusic);
+
+// Start music when user clicks the first wish button
+document.querySelector('.shuffle-button').addEventListener('click', startMusic);
+
 
 // ===== CUSTOMIZE: Add your reasons here! =====
 // Each reason has:

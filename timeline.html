@@ -336,7 +336,7 @@
 </head>
 <body>
     <audio id="bgMusic" loop>
-        <source src="hbd.mp3" type="audio/mpeg">
+        <source src="./music/page3.mp3" type="audio/mpeg">
     </audio>
     <div class="music-toggle" id="musicToggle" title="Toggle Music">
         <span class="music-icon">🎵</span>
@@ -454,35 +454,37 @@
     <button class="next-btn" onclick="goToMemories()">View Our Memories 📸</button>
 
     <script>
-        // Music Control
-        const bgMusic = document.getElementById('bgMusic');
-        const musicToggle = document.getElementById('musicToggle');
-        const musicIcon = musicToggle.querySelector('.music-icon');
+       // ===== MUSIC CONTROL =====
+const bgMusic = document.getElementById('bgMusic');
+const musicToggle = document.getElementById('musicToggle');
+const musicIcon = musicToggle.querySelector('.music-icon');
 
-        function toggleMusic() {
-            if (bgMusic.paused) {
-                bgMusic.play();
-                musicToggle.classList.add('playing');
-                musicIcon.textContent = '🎵';
-                localStorage.setItem('musicPlaying', 'true');
-            } else {
-                bgMusic.pause();
-                musicToggle.classList.remove('playing');
-                musicIcon.textContent = '🔇';
-                localStorage.setItem('musicPlaying', 'false');
-            }
-        }
+function toggleMusic() {
+    if (bgMusic.paused) {
+        bgMusic.play().then(() => {
+            musicToggle.classList.add('playing');
+            musicIcon.textContent = '🎵';
+        }).catch(() => {});
+    } else {
+        bgMusic.pause();
+        musicToggle.classList.remove('playing');
+        musicIcon.textContent = '🔇';
+    }
+}
 
-        musicToggle.addEventListener('click', toggleMusic);
+musicToggle.addEventListener('click', toggleMusic);
 
-        if (localStorage.getItem('musicPlaying') === 'true') {
-            bgMusic.play().then(() => {
-                musicToggle.classList.add('playing');
-                musicIcon.textContent = '🎵';
-            }).catch(() => {
-                musicIcon.textContent = '🔇';
-            });
-        }
+// Start music when user interacts with the page
+document.addEventListener('click', function startPageMusic() {
+    if (bgMusic.paused) {
+        bgMusic.play().then(() => {
+            musicToggle.classList.add('playing');
+            musicIcon.textContent = '🎵';
+        }).catch(() => {});
+    }
+
+    document.removeEventListener('click', startPageMusic);
+}, { once: true });
 
         // Timeline animation on scroll
         const timelineItems = document.querySelectorAll('.timeline-item');
